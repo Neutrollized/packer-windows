@@ -36,7 +36,7 @@
       "disk_size": 40960,
       "floppy_files": [
         "{{pwd}}/answer_files/2012_r2/Autounattend.xml",
-	"{{pwd}}floppy/ConfigureRemotingForAnsible.ps1"
+	"{{pwd}}/floppy/ConfigureRemotingForAnsible.ps1"
       ],
       "vboxmanage": [
         ["modifyvm","{{.Name}}","--cpus","{{user `cpus`}}"],
@@ -67,7 +67,7 @@
       "disk_size": 30720,
       "floppy_files": [
         "{{pwd}}/answer_files/2012_r2/Autounattend.xml",
-	"{{pwd}}floppy/ConfigureRemotingForAnsible.ps1"
+	"{{pwd}}/floppy/ConfigureRemotingForAnsible.ps1"
       ],
       "vboxmanage": [
         ["modifyvm","{{.Name}}","--cpus","{{user `cpus`}}"],
@@ -86,6 +86,7 @@
       "except": ["win-vbox-base","win-vbox-noupdates"]
     },	
     {
+      "__comment__": "need to populate the iso_* variables with proper values",
       "type": "powershell",
       "scripts": [
 	"{{pwd}}/scripts/setup-pswindowsupdate.ps1",

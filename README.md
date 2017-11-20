@@ -19,8 +19,8 @@ Updates are done in stages with system restarts in between each: Service Packs, 
 
 ### Optional (Provisioning) Scripts
 
-* setup-wsusclient.ps1 - If you have your own internal WSUS to control which updates are allowed, you can enter that info in the script and have it run at the beginning of provisioning.
+* install-vboxadditions.ps1 - Self-explanatory, but you'll have to comment out the appropriate lines depending on what version of VirtualBox you're using.
 
-* install-wmf5.ps1 - Windows Management Framework (WMF) 5.1 is also installed as PowerShell ver. 5 is a requirement for the Ansible Windows DSC module.
+* setup-wsusclient.ps1 - If you have your own internal WSUS to control which updates are allowed, you can enter that info in the script and have it run at the beginning of provisioning before the updates begin.
 
-* install-vboxadditions.ps1 - Self-explanatory, but you'll have to comment out the appropriate lines depending on what version of VirtualBox you're using. 
+* install-wmf5.ps1 - Windows Management Framework (WMF) 5.1 is also installed as PowerShell ver. 5 is a requirement for the Ansible Windows DSC module.  If you don't require the use of Ansible and/or the DSC module, you can opt to leave this out.  In Windows 2016, the standard PS version already meets the requirements and you wouldn't need this.
