@@ -1,13 +1,31 @@
+# hat tip goes out to: github.com/luciusbono
+
+$isoPath = "C:\Users\packer\VBoxGuestAdditions.iso"
+
+
 # mounting ISO
-Mount-DiskImage -ImagePath "C:\Users\packer\VBoxGuestAdditions.iso"
+Mount-DiskImage -ImagePath $isoPath
+
 
 # adding certs to trusted provider
-#5.0
-E:\cert\VboxCertUtil.exe add-trusted-publisher E:\cert\oracle-vbox.cer
-#5.1
-E:\cert\VboxCertUtil.exe add-trusted-publisher E:\cert\vbox-sha1.cer
-E:\cert\VboxCertUtil.exe add-trusted-publisher E:\cert\vbox-sha256.cer
-E:\cert\VboxCertUtil.exe add-trusted-publisher E:\cert\vbox-sha256-r3.cer
+$certDir = ((Get-DiskImage -ImagePath $isoPath | Get-Volume).Driveletter + ':\cert\')
+$vboxCertUtil = ($certDir + 'VBoxCertUtil.exe')
+
+if (Test-Path ($vboxCertUtil)) {
+	Get-ChildItem $certDir *.cer | ForEach-Object { & $vboxCertUtil add-trusted-publisher $_.FullName --root $_.FullName }
+} else {
+	$certPath = ($certPath + 'oracle-vbox.cer')
+	certutil -addstore -f "TrustedPublisher" $certPath
+}
+
 
 # silent install
-E:\VBoxWindowsAdditions.exe /S
+$exe = ((Get-DiskImage -ImagePath $isoPath | Get-Volume).Driveletter + ':\VBoxWindowsAdditions.exe')
+$options = '/S'
+
+Start-Process $exe $options -Wait
+
+
+# clean up
+Dismount-DiskImage -ImagePath $isoPath
+Remove-Item $isoPath
