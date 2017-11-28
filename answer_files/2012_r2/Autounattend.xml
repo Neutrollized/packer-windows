@@ -125,7 +125,7 @@
               		    <Value>packer</Value>
               		    <PlainText>true</PlainText>
             	    	</Password>
-            	    	<Group>administrators</Group>
+            	    	<Group>Administrators;Remote Management Users</Group>
             	    	<DisplayName>Packer</DisplayName>
             	    	<Name>packer</Name>
             	    	<Description>Packer User</Description>
