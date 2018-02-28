@@ -1,6 +1,4 @@
-Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
-$PSDefaultParameterValues['*:ErrorAction']='Stop'
 
 # replace [WSUS-SERVER-FQDN] with your WSUS server's info (i.e. mywsusserver.example.com)
 Stop-Service wuauserv

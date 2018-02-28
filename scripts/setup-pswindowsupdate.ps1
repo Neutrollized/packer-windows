@@ -1,6 +1,4 @@
-Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
-$PSDefaultParameterValues['*:ErrorAction']='Stop'
 
 $env:tmp_dir = "tmp"
 $env:repo_url = "https://gallery.technet.microsoft.com"
