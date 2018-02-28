@@ -2,6 +2,10 @@
 
 * currrently only for Windows2012R2, but can easily be extended to other versions with some minor modifications to the packer.json file
 
+## TODO
+
+* currently QEMU builder doesn't work
+
 ## Requirements
 
 * [Packer](https://www.packer.io/)
