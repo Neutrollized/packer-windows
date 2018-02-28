@@ -1,4 +1,7 @@
 # hat tip goes out to: github.com/luciusbono
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+$PSDefaultParameterValues['*:ErrorAction']='Stop'
 
 $isoPath = "C:\Users\packer\VBoxGuestAdditions.iso"
 

@@ -1,3 +1,7 @@
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+$PSDefaultParameterValues['*:ErrorAction']='Stop'
+
 Get-WUInstall -Verbose -IgnoreReboot -KBArticleID "KB3191564" -AcceptAll
 Get-WUInstall -Verbose -IgnoreReboot -KBArticleID "KB3191565" -AcceptAll
 

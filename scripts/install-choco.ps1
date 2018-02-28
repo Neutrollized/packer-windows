@@ -25,6 +25,9 @@
 # NOTE: $env:chocolateyDownloadUrl does not work with $env:chocolateyVersion.
 # To use built-in compression instead of 7zip (requires additional download), please set $env:chocolateyUseWindowsCompression = 'true'
 # To bypass the use of any proxy, please set $env:chocolateyIgnoreProxy = 'true'
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+$PSDefaultParameterValues['*:ErrorAction']='Stop'
 
 #specifically use the API to get the latest version (below)
 $url = ''

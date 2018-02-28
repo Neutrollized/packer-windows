@@ -7,19 +7,45 @@
     "headless": "true",
     "iso_name": "{{pwd}}/iso/",
     "iso_checksum": "",
-    "iso_checksum_type": "",
+    "iso_checksum_type": "sha256",
     "guest_os_type": "Windows2012_64",
     "autounattend": "{{pwd}}/answer_files/2012_r2/Autounattend.xml",
     "vagrant_output_dir": "{{pwd}}/vagrant_box"
   },
   "builders": [
     {
+      "name": "win-qemu-noupdates",
+      "type": "qemu",
+      "format": "raw",
+      "iso_url": "{{user `iso_name`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "boot_wait": "2m",
+      "communicator": "winrm",
+      "headless": "{{user `headless`}}",
+      "use_default_display": "true",
+      "winrm_username": "{{user `packer_user`}}",
+      "winrm_password": "{{user `packer_password`}}",
+      "winrm_use_ssl": "true",
+      "winrm_insecure": "true",
+      "winrm_timeout": "1h",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "shutdown_timeout": "1h",
+      "disk_interface": "ide",
+      "disk_size": 40960,
+      "floppy_files": [
+        "{{pwd}}/answer_files/2012_r2/Autounattend.xml",
+	"{{pwd}}/floppy/ConfigureRemotingForAnsible.ps1"
+      ],
+      "qemuargs": [
+        ["-m","{{user `memory`}}"],
+        ["-smp","cpus={{user `cpus`}}"]
+      ]
+    },
+    {
       "name": "win-vbox-base",
       "type": "virtualbox-iso",
-      "iso_urls": [
-        "{{user `iso_name`}}",
-        "{{user `iso_repo_url`}}/{{user `iso_repo_directory`}}/{{user `iso_name`}}"
-      ],
+      "iso_url": "{{user `iso_name`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "boot_wait": "2m",
@@ -45,10 +71,7 @@
     {
       "name": "win-vbox-noupdates",
       "type": "virtualbox-iso",
-      "iso_urls": [
-        "{{user `iso_name`}}",
-        "{{user `iso_repo_url`}}/{{user `iso_repo_directory`}}/{{user `iso_name`}}"
-      ],
+      "iso_url": "{{user `iso_name`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "boot_wait": "2m",
@@ -80,7 +103,7 @@
 	"--connection", "packer",
 	"--extra-vars", "ansible_shell_type=powershell ansible_shell_executable=None"
       ],
-      "except": ["win-vbox-base","win-vbox-noupdates"]
+      "except": ["win-qemu-noupdates","win-vbox-base","win-vbox-noupdates"]
     },	
     {
       "type": "powershell",

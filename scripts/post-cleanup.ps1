@@ -1,3 +1,7 @@
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+$PSDefaultParameterValues['*:ErrorAction']='Stop'
+
 echo "-> Removing all Windows features that are not enabled..."
 Get-WindowsFeature |
 ? { $_.InstallState -eq 'Available' } |
